@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns:v-bind="http://www.w3.org/1999/xhtml"
+	  xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+	<!--Vue.js介绍-->
+</head>
+<body>
+	<!--第一个Vue.js实例-->
+	<div id="app">
+	  {{ message }}
+	</div>
+	<script>
+		let app = new Vue({
+			el: '#app',
+			data: {
+				message: 'Hello World'
+			}
+		});
+	</script>
+
+	<!--
+		声明式渲染  指令 v-bind:attribute
+			指令有前缀v-,以表示Vue提供的特殊属性
+	-->
+	<div id="app-2">
+		<span v-bind:title="message">
+			鼠标悬停几秒钟查看此处动态绑定的提示信息！
+		</span>
+	</div>
+	<script>
+		let app2 = new Vue({
+			el: '#app-2',
+			data: {
+				message: 'hello world'
+			}
+		});
+	</script>
+
+	<!--条件渲染 v-if-->
+	<div id="app-3">
+		<p v-if="seen">
+			现在你看到我了
+		</p>
+	</div>
+	<script>
+		let app3 = new Vue({
+			el: '#app-3',
+			data: {
+				seen: true
+			}
+		})
+	</script>
+	<!--
+		循环渲染 v-for
+			控制台输入app4.todos.push({text: "hello"})
+	-->
+	<div id="app-4">
+		<ol>
+			<li v-for="todo in todos">
+				{{todo.text}}
+			</li>
+		</ol>
+	</div>
+	<script>
+		let app4 = new Vue({
+			el: "#app-4",
+			data: {
+				todos: [
+					{text: '学习javascript'},
+					{text: '学习Vue'},
+					{text: '学习项目'}
+				]
+			}
+		})
+	</script>
+	<!--
+		处理用户输入v-on添加事件监听。
+		demo:用户点击按钮反转消息
+	-->
+	<div id="app-5">
+		<p>{{message}}</p>
+		<button v-on:click="reverseMessage">消息反转</button>
+	</div>
+	<script>
+		let app5 = new Vue({
+			el: '#app-5',
+			data: {
+				message: 'Hello World!'
+			},
+			methods: {
+				reverseMessage: function () {
+					this.message = this.message.split('').reverse().join('');
+				}
+			}
+		})
+	</script>
+	<!--
+		表单输入和应用状态之间的双向绑定 v-model
+
+		工具知识点:div#app-6>p{{{message}}}+input[type="text"]
+	-->
+	<div id="app-6">
+		<p>{{message}}</p>
+		<input type="text" v-model="message">
+	</div>
+	<script>
+		let app6 = new Vue({
+			el: '#app-6',
+			data: {
+				message: 'Hello World'
+			}
+		})
+	</script>
+
+	<!--
+		组件
+		bug: 注意此处注册组件与创建Vue实例的顺序应该是先注册组件再创建Vue实例，否则组件无法创建成功。
+	-->
+	<div id="app-7">
+		<ul>
+			<li v-for="grocery in groceryList">{{grocery.text}}</li>
+			<todo-item
+					v-for="item in groceries"
+					v-bind:todo="item"
+					v-bind:key="item.id"
+			></todo-item>
+		</ul>
+	</div>
+	<script>
+		Vue.component('todo-item', {
+			props: ['todo'],
+			template: '<li>{{ todo.text }}</li>'
+		});
+		let app7 = new Vue({
+			el: '#app-7',
+			data: {
+				groceryList: [
+					{text:'蔬菜'},
+					{text:'火腿'},
+					{text:'三明治'}
+				],
+				groceries: [
+					{id:0,text:'蔬菜'},
+					{id:1,text:'火腿'},
+					{id:2,text:'三明治'}
+				]
+			}
+		});
+	</script>
+</body>
+</html>
