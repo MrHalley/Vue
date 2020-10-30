@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--基本语法
+        1.var没有块作用域,同一变量可以声明多次;let有块作用域,同一作用域中同一变量只能申明一次
+        2.const声明常亮,且必须初始化
+        3.解构赋值
+            let a = 1,b = 2,c = 3
+            let [a,b,c] = [1,2,3]
+        4.模板字符串``。可以在${}中写入变量和表达式
+            let = `hello
+                    world`;//
+            let = ``
+        5.声明对象简写
+        6.定义方法简写
+        7.对象拓展运算符
+        8.箭头函数
+    -->
+    <script>
+        //3.解构赋值
+        let [a,b,c] = [1,2,3];
+        //4.模板字符串
+        let d = `hello
+            world`;
+        let e = `${a + b + c}`
+        //5.声明对象简写 {a: 1, b: 2}
+        let f = {a,b};
+        //6.定义方法简写
+        let g = {
+            h:function () {
+                console.log(a);
+            },
+            i(){
+                console.log(b);
+            }
+        }
+        //7.对象拓展运算符
+        let j = {a,b};
+        let k = {... j};
+        //8.箭头函数
+        let l = (a,b)=>{
+            console.log("a,b的和");
+            return a + b;
+        }
+    </script>
+</body>
+</html>
